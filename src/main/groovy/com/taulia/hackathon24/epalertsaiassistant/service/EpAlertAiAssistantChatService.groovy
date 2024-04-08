@@ -39,22 +39,19 @@ class EpAlertAiAssistantChatService {
   }
 
   Message sendMessage(String threadId, Message message) {
-    message.sentAt = Instant.now()
-
     ChatThread thread = threadRepository.findById(threadId).orElseThrow { new RuntimeException() }
-    ChatResponse response = chatClient.call(createPrompt(thread, message))
-
     persistMessage(thread, message)
+
+    ChatResponse response = chatClient.call(createPrompt(thread))
     persistMessage(thread, response.result.output)
   }
 
-  private Prompt createPrompt(ChatThread thread, Message userMessage) {
+  private Prompt createPrompt(ChatThread thread) {
     List<org.springframework.ai.chat.messages.Message> messages = []
 
     SystemPromptTemplate promptTemplate = new SystemPromptTemplate(systemPromptResource)
     messages << promptTemplate.createMessage()
     messages.addAll(thread.messages.collect { new ChatMessage(it.type.name(), it.content) })
-    messages.add(new UserMessage(userMessage.content))
     new Prompt(messages)
   }
 
