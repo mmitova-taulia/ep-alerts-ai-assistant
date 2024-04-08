@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: ep-alerts-ai-assistant
+  ai:
+    openai:
+      api-key: ${openai_api_key}
+      chat:
+        options:
+          model: gpt-3.5-turbo
