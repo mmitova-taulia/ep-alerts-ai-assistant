@@ -1,5 +1,7 @@
 package com.taulia.hackathon24.epalertsaiassistant.service
 
+import com.taulia.hackathon24.epalertsaiassistant.function.ResolveFunderIdFunction
+import com.taulia.hackathon24.epalertsaiassistant.function.ResolveFunderIdResponse
 import com.taulia.hackathon24.epalertsaiassistant.model.ChatThread
 import com.taulia.hackathon24.epalertsaiassistant.model.Message
 import com.taulia.hackathon24.epalertsaiassistant.repository.ChatThreadRepository
@@ -38,7 +40,7 @@ class EpAlertAiAssistantChatService {
 
   String testSystemPromptForMessage(String message) {
     OpenAiChatOptions promptOptions = OpenAiChatOptions.builder()
-      .withFunction("resolve_funder_id")
+      .withFunctions(["resolve_funder_id", "create_jira_ticket"] as Set)
       .build()
 
     UserMessage userMessage = new UserMessage(message)
@@ -63,7 +65,7 @@ class EpAlertAiAssistantChatService {
     messages.addAll(thread.messages.collect { new ChatMessage(it.type.name(), it.content) })
 
     OpenAiChatOptions promptOptions = OpenAiChatOptions.builder()
-      .withFunction("resolve_funder_id")
+      .withFunctions(["resolve_funder_id", "create_jira_ticket"] as Set)
       .build()
     new Prompt(messages, promptOptions)
   }
@@ -87,21 +89,6 @@ class EpAlertAiAssistantChatService {
     threadRepository.save(thread)
 
     message
-  }
-
-  @Configuration
-  static class Config {
-
-    @Bean
-    FunctionCallback resolveFunderIdFunctionInfo() {
-
-      return FunctionCallbackWrapper.builder(new ResolveFunderIdFunction())
-        .withName("resolve_funder_id")
-        .withDescription("Resolves funderId by funderName")
-        .withResponseConverter((Response response) -> response.funderId())
-        .build();
-    }
-
   }
 
 }
