@@ -1,10 +1,13 @@
 package com.taulia.hackathon24.epalertsaiassistant.model
 
-import java.time.LocalDateTime
+import java.time.Instant
 
 class Message {
-  String threadId
-  MessageType messageType
-  String messageContent
-  LocalDateTime datetime //sent time
+
+  MessageType type
+
+  String content
+
+  Instant sentAt
+
 }
