@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @Configuration
 @EnableMongoRepositories('com.taulia.hackathon24.epalertsaiassistant.repository')
 class MongoConfiguration extends AbstractMongoClientConfiguration {
+
   static final String DATABASE_NAME = 'epAlertsAiAssistantMessageHistory'
 
   @Override
