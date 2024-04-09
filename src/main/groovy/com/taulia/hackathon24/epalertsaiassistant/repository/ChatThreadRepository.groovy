@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface ChatThreadRepository extends MongoRepository<ChatThread, String> {
 
+  ChatThread findByIdAndUserId(String id, String userId)
+
 }
