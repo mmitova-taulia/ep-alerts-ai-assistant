@@ -40,7 +40,7 @@ class EpAlertAiAssistantChatService {
     @Bean
     FunctionCallback resolveFunderIdFunctionInfo() {
 
-      return FunctionCallbackWrapper.builder(new AlertsInformationService())
+      return FunctionCallbackWrapper.builder(new ResolveFunderIdFunction())
         .withName("resolve_funder_id")
         .withDescription("Resolves funderId by funderName")
         .withResponseConverter((Response response) -> response.funderId())

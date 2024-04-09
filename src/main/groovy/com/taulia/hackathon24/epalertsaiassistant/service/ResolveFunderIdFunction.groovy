@@ -9,7 +9,7 @@ import groovy.util.logging.Slf4j
 import java.util.function.Function
 
 @Slf4j
-class AlertsInformationService implements Function<Request, Response> {
+class ResolveFunderIdFunction implements Function<Request, Response> {
 
 
   @Override
