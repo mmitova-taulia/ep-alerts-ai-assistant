@@ -16,7 +16,8 @@ class ChatThreadService {
   ChatThreadCreated createThread() {
     ChatThread thread = new ChatThread()
     thread.userId = SecurityContextHolder.context.authentication.principal
-    new ChatThreadCreated(threadId: threadRepository.save(thread).id)
+    thread = threadRepository.save(thread)
+    new ChatThreadCreated(threadId: thread.id, dateCreated: thread.dateCreated)
   }
 
   ChatThread resumeThread(String threadId) {
