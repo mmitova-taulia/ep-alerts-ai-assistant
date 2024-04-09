@@ -9,4 +9,6 @@ interface ChatThreadRepository extends MongoRepository<ChatThread, String> {
 
   ChatThread findByIdAndUserId(String id, String userId)
 
+  List<ChatThread> findAllByUserId(String userId)
+
 }
