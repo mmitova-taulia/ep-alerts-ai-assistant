@@ -27,7 +27,9 @@ class ChatThreadService {
   List<ChatThread> getThreads() {
     String userId = SecurityContextHolder.context.authentication.principal
     List<ChatThread> threads = threadRepository.findAllByUserId(userId)
-    threads.each { it.messages = [] }
+    threads
+      .findAll { it.messages.size() > 0 }
+      .each { it.messages = [] }
       .sort { ChatThread t1, ChatThread t2 -> t2.dateCreated <=> t1.dateCreated }
   }
 

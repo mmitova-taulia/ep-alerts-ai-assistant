@@ -1,7 +1,5 @@
 package com.taulia.hackathon24.epalertsaiassistant.service
 
-import com.taulia.hackathon24.epalertsaiassistant.function.ResolveFunderIdFunction
-import com.taulia.hackathon24.epalertsaiassistant.function.ResolveFunderIdResponse
 import com.taulia.hackathon24.epalertsaiassistant.model.ChatThread
 import com.taulia.hackathon24.epalertsaiassistant.model.Message
 import com.taulia.hackathon24.epalertsaiassistant.repository.ChatThreadRepository
@@ -11,14 +9,10 @@ import org.springframework.ai.chat.messages.ChatMessage
 import org.springframework.ai.chat.messages.UserMessage
 import org.springframework.ai.chat.prompt.Prompt
 import org.springframework.ai.chat.prompt.SystemPromptTemplate
-import org.springframework.ai.model.function.FunctionCallback
-import org.springframework.ai.model.function.FunctionCallbackWrapper
 import org.springframework.ai.openai.OpenAiChatClient
 import org.springframework.ai.openai.OpenAiChatOptions
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.Resource
 import org.springframework.stereotype.Service
 
