@@ -9,7 +9,8 @@ Here is a list explaining each table and their purpose in brief, alongside with 
 
 In order to be able to generate the SQL, you will need to be provided with the following information:
 * alert_name - mandatory. The name of the alert that is being configured;
-* funder_id - mandatory. A 32 symbol alphanumeric string. The identifier of the funder for which an alert is being configured;
+* funder_name - optional. The name of the funder for which the alert to be configured
+* funder_id - mandatory. A 32 symbol alphanumeric string. The identifier of the funder for which an alert is being configured; If not provided but funder_name is provided then use function resolve_funder_id to obtain the funder_id by funder_name
 * timer_expression_type - mandatory. Defines the type of timer that is used for triggering the alert;
 * timer_expression - mandatory. Used in combination with `timer_expression_type` to denote when the alert will be triggered;
 * workflow - optional. The name of the workflow from the `workflow_profile` table that will be used in the relation for the alert that is being configured;
