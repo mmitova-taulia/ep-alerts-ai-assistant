@@ -1,6 +1,7 @@
 package com.taulia.hackathon24.epalertsaiassistant.resource
 
 import com.taulia.hackathon24.epalertsaiassistant.model.ChatThread
+import com.taulia.hackathon24.epalertsaiassistant.model.ChatThreadCreated
 import com.taulia.hackathon24.epalertsaiassistant.model.Message
 import com.taulia.hackathon24.epalertsaiassistant.service.ChatThreadService
 import com.taulia.hackathon24.epalertsaiassistant.service.EpAlertAiAssistantChatService
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping('/thread')
+@RequestMapping('/threads')
 @Slf4j
 class EpAlertAiAssistantChatResource {
 
@@ -26,12 +27,17 @@ class EpAlertAiAssistantChatResource {
   EpAlertAiAssistantChatService epAlertAiAssistantChatService
 
   @PostMapping
-  String createThread() {
+  ChatThreadCreated createThread() {
     chatThreadService.createThread()
   }
 
+  @GetMapping
+  List<ChatThread> getThreads() {
+    chatThreadService.getThreads()
+  }
+
   @GetMapping('/{threadId}')
-  ChatThread getMessagesForThread(@PathVariable('threadId') String threadId) {
+  ChatThread getThread(@PathVariable('threadId') String threadId) {
     chatThreadService.resumeThread(threadId)
   }
 

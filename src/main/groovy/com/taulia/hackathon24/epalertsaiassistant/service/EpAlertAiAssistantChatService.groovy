@@ -61,7 +61,11 @@ class EpAlertAiAssistantChatService {
     SystemPromptTemplate promptTemplate = new SystemPromptTemplate(systemPromptResource)
     messages << promptTemplate.createMessage()
     messages.addAll(thread.messages.collect { new ChatMessage(it.type.name(), it.content) })
-    new Prompt(messages)
+
+    OpenAiChatOptions promptOptions = OpenAiChatOptions.builder()
+      .withFunction("resolve_funder_id")
+      .build()
+    new Prompt(messages, promptOptions)
   }
 
   private Message persistMessage(ChatThread thread, Message message) {
