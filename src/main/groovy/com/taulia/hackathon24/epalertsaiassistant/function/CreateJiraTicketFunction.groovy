@@ -35,7 +35,7 @@ class CreateJiraTicketFunction implements Function<CreateJiraTicketRequest, Crea
 @JsonClassDescription("Create Jira Ticket API request")
 class CreateJiraTicketRequest {
 
-  @JsonProperty(required = true, value = "sqls")
+  @JsonProperty(required = true, value = "sql")
   @JsonPropertyDescription("The generated SQL statements")
   String sql
 
