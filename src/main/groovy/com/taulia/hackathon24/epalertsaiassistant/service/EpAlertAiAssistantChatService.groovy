@@ -59,7 +59,7 @@ class EpAlertAiAssistantChatService {
     messages.addAll(thread.messages.collect { new ChatMessage(it.type.name(), it.content) })
 
     OpenAiChatOptions promptOptions = OpenAiChatOptions.builder()
-      .withFunctions(["resolve_funder_id", "create_jira_ticket"] as Set)
+      .withFunctions(["resolve_funder_id", "create_jira_ticket", "verify_workflow"] as Set)
       .build()
     new Prompt(messages, promptOptions)
   }
