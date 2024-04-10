@@ -20,7 +20,7 @@ class VerifyWorkflowFunction implements Function<VerifyWorkflowRequest, VerifyWo
 
     List<String> workflows = ppmService.getWorkflows()
 
-    String result =  "Workflow ${workflow} ${workflows.contains(workflow) ? '' : 'does not '}exists"
+    String result =  "Workflow ${workflow} ${workflows.contains(workflow) ? 'exists' : 'does not exist'}"
     log.info("verify_workflow function returns [${result}]")
 
     new VerifyWorkflowResponse(result)
