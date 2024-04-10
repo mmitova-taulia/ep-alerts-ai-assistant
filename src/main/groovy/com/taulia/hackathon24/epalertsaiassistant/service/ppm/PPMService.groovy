@@ -30,7 +30,7 @@ class PPMService {
   @Autowired
   RestTemplate restTemplate
 
-  List<String> getWorkflows() {
+  List<Workflow> getWorkflows() {
     final String workflowsEndpointURL = "${ppmUrl}/v2/workflow/list"
 
 
@@ -40,8 +40,6 @@ class PPMService {
 
     List<Workflow> workflows = response.getBody()
     log.info("PPM returned workflows [${workflows}]")
-
-    workflows*.name
   }
 
   String resolveFunderIdByName(String funderName) {
