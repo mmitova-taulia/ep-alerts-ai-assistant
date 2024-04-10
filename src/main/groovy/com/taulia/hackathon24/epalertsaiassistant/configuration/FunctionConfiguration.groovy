@@ -2,10 +2,10 @@ package com.taulia.hackathon24.epalertsaiassistant.configuration
 
 import com.taulia.hackathon24.epalertsaiassistant.function.CreateJiraTicketFunction
 import com.taulia.hackathon24.epalertsaiassistant.function.CreateJiraTicketResponse
-import com.taulia.hackathon24.epalertsaiassistant.function.VerifyWorkflowFunction
+import com.taulia.hackathon24.epalertsaiassistant.function.ResolveWorkflowIdByNameFunction
 import com.taulia.hackathon24.epalertsaiassistant.function.ResolveFunderIdFunction
 import com.taulia.hackathon24.epalertsaiassistant.function.ResolveFunderIdResponse
-import com.taulia.hackathon24.epalertsaiassistant.function.VerifyWorkflowResponse
+import com.taulia.hackathon24.epalertsaiassistant.function.ResolveWorkflowIdByNameResponse
 import com.taulia.hackathon24.epalertsaiassistant.service.jira.JiraService
 import com.taulia.hackathon24.epalertsaiassistant.service.ppm.PPMService
 import org.springframework.ai.model.function.FunctionCallback
@@ -19,10 +19,10 @@ class FunctionConfiguration {
   @Bean
   FunctionCallback verifyWorkflowFunction(PPMService ppmService) {
 
-    FunctionCallbackWrapper.builder(new VerifyWorkflowFunction(ppmService: ppmService))
-      .withName("verify_workflow")
-      .withDescription("Obtains all registered workflows and checks if the provided workflow is one of the registered")
-      .withResponseConverter((VerifyWorkflowResponse response) -> response.result())
+    FunctionCallbackWrapper.builder(new ResolveWorkflowIdByNameFunction(ppmService: ppmService))
+      .withName("resolve_workflow_id")
+      .withDescription("Resolves workflow profile id by workflow name. If workflow does not exists all registered workflows returned.")
+      .withResponseConverter((ResolveWorkflowIdByNameResponse response) -> response.workflowId())
       .build()
   }
 
