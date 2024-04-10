@@ -27,7 +27,7 @@ class JiraService {
   String jiraIssueType = 'Task'
 
   String createJiraTicket(String alertName, String funderName, String workflow, String sql) {
-    String summary = "(Test ticket) Insert EP alert(s) $alertName for funder $funderName and $workflow"
+    String summary = "[EP ALERTS] Insert EP alert(s) $alertName for funder $funderName and $workflow"
     String description = """
 Please, check and execute the following SQL statements
 

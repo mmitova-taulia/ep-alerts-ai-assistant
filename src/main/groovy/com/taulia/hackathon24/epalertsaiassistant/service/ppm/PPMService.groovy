@@ -40,6 +40,7 @@ class PPMService {
 
     List<Workflow> workflows = response.getBody()
     log.info("PPM returned workflows [${workflows}]")
+    workflows
   }
 
   String resolveFunderIdByName(String funderName) {
