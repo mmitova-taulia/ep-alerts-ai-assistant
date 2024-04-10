@@ -21,7 +21,7 @@ class FunctionConfiguration {
 
     FunctionCallbackWrapper.builder(new ResolveWorkflowIdByNameFunction(ppmService: ppmService))
       .withName("resolve_workflow_id")
-      .withDescription("Resolves workflow profile id by workflow name. If workflow does not exists all registered workflows returned.")
+      .withDescription("Resolves workflow profile id by workflow name. If workflow does not exists the function returns message containing all registered workflows.")
       .withResponseConverter((ResolveWorkflowIdByNameResponse response) -> response.workflowId())
       .build()
   }

@@ -21,7 +21,7 @@ class ResolveWorkflowIdByNameFunction implements Function<ResolveWorkflowIdByNam
 
     List<Workflow> workflows = ppmService.getWorkflows()
 
-    String existingWorkflowId = workflows.find {it.name == workflow }
+    String existingWorkflowId = workflows.find {it.name == workflow }?.id
 
     String workflowId = existingWorkflowId ?: "Workflow ${workflow} does not exist. Valid workflows are ${workflows*.name}"
     log.info("resolve_workflow_id function returns [${workflowId}]")
