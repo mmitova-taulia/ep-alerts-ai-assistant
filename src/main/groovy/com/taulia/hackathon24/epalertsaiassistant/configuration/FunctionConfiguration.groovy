@@ -4,6 +4,7 @@ import com.taulia.hackathon24.epalertsaiassistant.function.CreateJiraTicketFunct
 import com.taulia.hackathon24.epalertsaiassistant.function.CreateJiraTicketResponse
 import com.taulia.hackathon24.epalertsaiassistant.function.ResolveFunderIdFunction
 import com.taulia.hackathon24.epalertsaiassistant.function.ResolveFunderIdResponse
+import com.taulia.hackathon24.epalertsaiassistant.service.jira.JiraService
 import org.springframework.ai.model.function.FunctionCallback
 import org.springframework.ai.model.function.FunctionCallbackWrapper
 import org.springframework.context.annotation.Bean
@@ -23,12 +24,12 @@ class FunctionConfiguration {
   }
 
   @Bean
-  FunctionCallback creatJiraTicketFunctionInfo() {
+  FunctionCallback creatJiraTicketFunctionInfo(JiraService jiraService) {
 
-    FunctionCallbackWrapper.builder(new CreateJiraTicketFunction())
+    FunctionCallbackWrapper.builder(new CreateJiraTicketFunction(jiraService: jiraService))
       .withName("create_jira_ticket")
-      .withDescription("Creates Jira Ticket with generated sqls")
-      .withResponseConverter((CreateJiraTicketResponse response) -> response.jiraTicketId())
+      .withDescription("Creates Jira Ticket. The function will return an url to the ticket")
+      .withResponseConverter((CreateJiraTicketResponse response) -> response.jiraTicketUrl())
       .build()
   }
 

@@ -4,37 +4,55 @@ import com.fasterxml.jackson.annotation.JsonClassDescription
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyDescription
+import com.taulia.hackathon24.epalertsaiassistant.service.jira.JiraService
 import groovy.util.logging.Slf4j
 
 import java.util.function.Function
 
 @Slf4j
-class CreateJiraTicketFunction  implements Function<CreateJiraTicketRequest, CreateJiraTicketResponse> {
+class CreateJiraTicketFunction implements Function<CreateJiraTicketRequest, CreateJiraTicketResponse> {
 
+  JiraService jiraService
 
   @Override
   CreateJiraTicketResponse apply(CreateJiraTicketRequest request) {
-    log.info("create_jira_ticket function called with sqls[${request.sqls()}]")
+    log.info("create_jira_ticket function called with arguments[${request}]")
 
-    //TODO: call PPM-s endpoint
-    String jiraTicketId = "OKB-1234"
-    log.info("create_jira_ticket_with_sqls function returns [${jiraTicketId}]")
+    String jiraTicketUrl = jiraService.createJiraTicket(
+      request.alert_name,
+      request.funder_name,
+      request.workflow,
+      request.sql
+    )
 
-    new CreateJiraTicketResponse(jiraTicketId)
+    log.info("create_jira_ticket function returns [${jiraTicketUrl}]")
+
+    new CreateJiraTicketResponse(jiraTicketUrl)
   }
 }
 
-/**
- * Find FunderId Function request.
- */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonClassDescription("Create Jira Ticket API request")
-record CreateJiraTicketRequest(@JsonProperty(required = true, value = "sqls") @JsonPropertyDescription("The sqls which to be added to the jira ticket") String sqls) {
+class CreateJiraTicketRequest {
+
+  @JsonProperty(required = true, value = "sql")
+  @JsonPropertyDescription("The generated SQL statements")
+  String sql
+
+  @JsonProperty(required = true, value = "alert_name")
+  @JsonPropertyDescription("The name of the alert")
+  String alert_name
+
+  @JsonProperty(required = true, value = "funder_name")
+  @JsonPropertyDescription("The name of the funder")
+  String funder_name
+
+  @JsonProperty(required = true, value = "workflow")
+  @JsonPropertyDescription("The workflow for the alert")
+  String workflow
 }
 
-/**
- * Find FunderId Function response.
- */
-record CreateJiraTicketResponse(String jiraTicketId) {
+
+record CreateJiraTicketResponse(String jiraTicketUrl) {
 
 }
